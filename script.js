@@ -17,6 +17,12 @@ function addBookToLibrary(book) {
 const zelda = new Book('zelda', 'nintendo', 44, true);
 addBookToLibrary(zelda);
 
+const mario = new Book('mario', 'nintendo', 12, false);
+addBookToLibrary(mario);
+
+const megaman = new Book('megaman', 'sega', 34, false);
+addBookToLibrary(megaman);
+
 
 function bookSubmit(e) {
   e.preventDefault();
@@ -28,18 +34,21 @@ function bookSubmit(e) {
 
 function cardTemplate(book) {
   const card = document.createElement('div');
-  card.className = card;
+  card.className = 'card';
 
+  const deleteBook = document.createElement('button');
   const title = document.createElement('p');  
   const author = document.createElement('p');
   const pages = document.createElement('p');
-  const read = document.createElement('p');
+  const read = document.createElement('button');
 
+  deleteBook.textContent = 'X'
   title.textContent = book.title;
-  author.textContent = book.author;
-  pages.textContent = book.pages;
+  author.textContent = `by ${book.author}`;
+  pages.textContent = `pages ${book.pages}`;
   read.textContent = book.read;
 
+  card.appendChild(deleteBook);
   card.appendChild(title);
   card.appendChild(author);
   card.appendChild(pages);
