@@ -8,13 +8,13 @@
 body{
   display: flex;
   flex-direction: column;
-  background-color: #faedcd;
+  background-color: #f6fff8;
   /* grid-template-columns: 1fr; */
   /* margin: 0 10%; */
 }
 
 header{
-  background-color: #faedcd;
+  background-color: #cce3de;
 }
 
 main{
@@ -23,25 +23,36 @@ main{
 #container{
   display: grid;
   padding: 5%;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1.5rem;
 }
 
 .card{
   height: 200px;
-  background-color: #e9edc9;
+  background-color: #6b9080;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  border-radius: 1rem;
+  color: #f6fff8;
 }
 
-.card p:nth-child(1){
-  color: #d4a373;
-  font-size: 1.5rem;
+.card div{
+  width: 80%;
+  display: flex;
+  justify-content: flex-end;
+  border: 1px solid red;
 }
 
 .card p:nth-child(2){
+  color: #ffe5d9;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.card p:nth-child(3){
+  color: #f6fff8;
   font-size: 1rem;
 }

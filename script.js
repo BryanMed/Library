@@ -27,28 +27,35 @@ addBookToLibrary(megaman);
 function bookSubmit(e) {
   e.preventDefault();
   const formData = new FormData(e.target);
-  const formProps = Object.fromEntries(formData);
-  console.log(formProps);
+  const book = Object.fromEntries(formData);
+
+  let newBook = new Book(book.title, book.author, book.pages, (book.read ? true : false));
+  addBookToLibrary(newBook);
+  createCards();
 }
 
 
-function cardTemplate(book) {
+function cardTemplate(book, idx) {
   const card = document.createElement('div');
   card.className = 'card';
 
+  const divDelete = document.createElement('div');
   const deleteBook = document.createElement('button');
-  const title = document.createElement('p');  
+  const title = document.createElement('p');
   const author = document.createElement('p');
   const pages = document.createElement('p');
   const read = document.createElement('button');
 
+  deleteBook.className = 'delete-btn';
   deleteBook.textContent = 'X'
   title.textContent = book.title;
   author.textContent = `by ${book.author}`;
-  pages.textContent = `pages ${book.pages}`;
+  pages.textContent = `${book.pages} pages`;
   read.textContent = book.read;
+  deleteBook.dataset.idx = idx;
 
-  card.appendChild(deleteBook);
+  divDelete.appendChild(deleteBook);
+  card.appendChild(divDelete);
   card.appendChild(title);
   card.appendChild(author);
   card.appendChild(pages);
@@ -57,19 +64,26 @@ function cardTemplate(book) {
   bookContainer.appendChild(card);
 }
 
-function createCard(e) {
-  e.preventDefault();
-
+function createCards() {
   //clear the bookContainer
-  while(bookContainer.firstChild){
+  while (bookContainer.firstChild) {
     bookContainer.removeChild(bookContainer.lastChild);
   }
 
-  myLibrary.forEach((book) => {
-    cardTemplate(book);
+  myLibrary.forEach((book, idx) => {
+    cardTemplate(book, idx);
   });
 }
 
+bookForm.addEventListener('submit', bookSubmit);
+
+bookContainer.addEventListener('click', (e) => {
+  if (e.target.className === 'delete-btn') {
+    myLibrary.splice(e.target.dataset.idx, 1);
+    createCards();
+  }
+})
 
 
-bookForm.addEventListener('submit', createCard);
+
+
