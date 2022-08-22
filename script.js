@@ -47,12 +47,13 @@ function cardTemplate(book, idx) {
   const read = document.createElement('button');
 
   deleteBook.className = 'delete-btn';
-  deleteBook.textContent = 'X'
+  read.className = 'read-status';
+  deleteBook.textContent = '✖'
   title.textContent = book.title;
   author.textContent = `by ${book.author}`;
   pages.textContent = `${book.pages} pages`;
-  read.textContent = book.read;
-  deleteBook.dataset.idx = idx;
+  read.textContent = book.read ? '🟢 read' : '🔴 not read' ;
+  card.dataset.idx = idx;
 
   divDelete.appendChild(deleteBook);
   card.appendChild(divDelete);
@@ -79,7 +80,11 @@ bookForm.addEventListener('submit', bookSubmit);
 
 bookContainer.addEventListener('click', (e) => {
   if (e.target.className === 'delete-btn') {
-    myLibrary.splice(e.target.dataset.idx, 1);
+    myLibrary.splice(e.target.parentNode.parentNode.dataset.idx, 1);
+    createCards();
+  }
+  else if(e.target.className === 'read-status'){
+    myLibrary[e.target.parentNode.dataset.idx].read = !myLibrary[e.target.parentNode.dataset.idx].read;
     createCards();
   }
 })
